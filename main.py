@@ -1,7 +1,6 @@
 import sys
 import time
 import random
-import serial.tools.list_ports
 from Adafruit_IO import MQTTClient
 
 #Variables
@@ -28,8 +27,6 @@ def disconnected(client):
 
 def message(client, feed_id, payload):
   print('Feed {0} received new value: {1}'.format(feed_id, payload))
-  if isMicrobitConnected:
-        ser.write((str(payload) + "#").encode())
 
 
 client = MQTTClient(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
@@ -40,49 +37,14 @@ client.on_subscribe = subcribe
 client.connect()
 client.loop_background()
 
-def getPort():
-    ports = serial.tools.list_ports.comports()
-    N = len(ports)
-    commPort = "None"
-    for i in range(0, N):
-        port = ports[i]
-        strPort = str(port)
-        if "USB Serial Device" in strPort:
-            splitPort = strPort.split(" ")
-            commPort = (splitPort[0])
-    return commPort
-
-isMicrobitConnected = False
-if getPort() != "None":
-    ser = serial.Serial( port=getPort(), baudrate=115200)
-    isMicrobitConnected = True
-
-
-def processData(data):
-    data = data.replace("!", "")
-    data = data.replace("#", "")
-    splitData = data.split(":")
-    print(splitData)
-    if splitData[1] == "TEMP":
-        client.publish(AIO_FEED_ID_SENSOR_1, splitData[2])
-
-mess = ""
-def readSerial():
-    bytesToRead = ser.inWaiting()
-    if (bytesToRead > 0):
-        global mess
-        mess = mess + ser.read(bytesToRead).decode("UTF-8")
-        while ("#" in mess) and ("!" in mess):
-            start = mess.find("!")
-            end = mess.find("#")
-            processData(mess[start:end + 1])
-            if (end == len(mess)):
-                mess = ""
-            else:
-                mess = mess[end+1:]
-
 while True:
-    if isMicrobitConnected:
-        readSerial()
-    time.sleep(1)
-
+    temp = random.randint(0, 50)
+    hum = random.randint(0, 100)
+    light = random.randint(0, 100)
+    print('Publishing {0} to {1}.'.format(temp, AIO_FEED_ID_SENSOR_1))
+    client.publish(AIO_FEED_ID_SENSOR_1, temp)
+    print('Publishing {0} to {1}.'.format(hum, AIO_FEED_ID_SENSOR_2))
+    client.publish(AIO_FEED_ID_SENSOR_2, hum)
+    print('Publishing {0} to {1}.'.format(light, AIO_FEED_ID_SENSOR_3))
+    client.publish(AIO_FEED_ID_SENSOR_3, light)
+    time.sleep(10)

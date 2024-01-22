@@ -1,0 +1,10 @@
+### How to run
+- Install lib in requirements.txt
+```shell
+pip install -r requirements.txt
+```
+
+- Run code
+```shell
+python3 main.py
+```
