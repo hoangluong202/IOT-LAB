@@ -1,4 +1,9 @@
 ### How to run
+- Create venv and active(Linux)
+```shell
+python3 -m venv .venv
+source .venv/bin/activate
+```
 - Install lib in requirements.txt
 ```shell
 pip install -r requirements.txt
