@@ -5,7 +5,7 @@ from Adafruit_IO import MQTTClient
 
 #Variables
 ADAFRUIT_IO_USERNAME = "hl01012002"
-ADAFRUIT_IO_KEY = "aio_anJs84KwvObUuJYkl1abRQfVKU5h"
+ADAFRUIT_IO_KEY = "aio_eEfB69BuOU6Pq4UGIbqeaGWGenIf"
 AIO_FEED_ID_BUTTON_1 = "button1"
 AIO_FEED_ID_BUTTON_2 = "button2"
 AIO_FEED_ID_SENSOR_1 = "sensor1"
@@ -47,4 +47,4 @@ while True:
     client.publish(AIO_FEED_ID_SENSOR_2, hum)
     print('Publishing {0} to {1}.'.format(light, AIO_FEED_ID_SENSOR_3))
     client.publish(AIO_FEED_ID_SENSOR_3, light)
-    time.sleep(10)
+    time.sleep(60)
