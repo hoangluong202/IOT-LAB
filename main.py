@@ -4,9 +4,9 @@ import random
 import os
 from Adafruit_IO import MQTTClient
 from dotenv import load_dotenv
+from simple_ai import image_detector
 
 load_dotenv()  # take environment variables from .env.
-from simple_ai import image_detector
 
 #Variables
 ADAFRUIT_IO_USERNAME = os.getenv("ADAFRUIT_IO_USERNAME")
@@ -46,17 +46,5 @@ while not client.is_connected():
     print('Waiting for connection...')
     time.sleep(1)
 
-ai_counter = 3
-global pre_result
-pre_result = ""
-
 while True:
-    ai_counter -= 1
-    if ai_counter == 0:
-        ai_counter = 3
-        result = image_detector()
-        print("AI Output:", result)
-        if(result != pre_result):
-            client.publish(AI0_FEED_ID_AI, result)
-            pre_result = result
-    time.sleep(1)
+  pass
