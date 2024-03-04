@@ -5,7 +5,7 @@ from Adafruit_IO import MQTTClient
 
 #Variables
 ADAFRUIT_IO_USERNAME = "hl01012002"
-ADAFRUIT_IO_KEY = "aio_anJs84KwvObUuJYkl1abRQfVKU5h"
+ADAFRUIT_IO_KEY = "aio_RRfI06zbdS6tSqUdlZISfSWPSMu1"
 AIO_FEED_ID_BUTTON_1 = "button1"
 AIO_FEED_ID_BUTTON_2 = "button2"
 AIO_FEED_ID_SENSOR_1 = "sensor1"
