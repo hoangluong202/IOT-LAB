@@ -1,12 +1,16 @@
 import sys
 import time
 import random
+import os
 from Adafruit_IO import MQTTClient
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
 from simple_ai import image_detector
 
 #Variables
-ADAFRUIT_IO_USERNAME = "hl01012002"
-ADAFRUIT_IO_KEY = "aio_eEfB69BuOU6Pq4UGIbqeaGWGenIf"
+ADAFRUIT_IO_USERNAME = os.getenv("ADAFRUIT_IO_USERNAME")
+ADAFRUIT_IO_KEY = os.getenv("ADAFRUIT_IO_KEY")
 AIO_FEED_ID_BUTTON_1 = "button1"
 AIO_FEED_ID_BUTTON_2 = "button2"
 AIO_FEED_ID_SENSOR_1 = "sensor1"
@@ -14,7 +18,6 @@ AIO_FEED_ID_SENSOR_2 = "sensor2"
 AIO_FEED_ID_SENSOR_3 = "sensor3"
 AI0_FEED_ID_AI = "ai"
 
-#Functions
 def connected(client):
   print("Ket noi thanh cong...")
   client.subscribe(AIO_FEED_ID_BUTTON_1)
@@ -30,18 +33,23 @@ def disconnected(client):
 def message(client, feed_id, payload):
   print("Nhan du lieu: " + payload)
 
-
-client = MQTTClient(ADAFRUIT_IO_USERNAME, ADAFRUIT_IO_KEY)
+client = MQTTClient(ADAFRUIT_IO_USERNAME , ADAFRUIT_IO_KEY)
 client.on_connect = connected
 client.on_disconnect = disconnected
 client.on_message = message
 client.on_subscribe = subscribe
+client.on_subscribe = subscribe
 client.connect()
 client.loop_background()
+
+while not client.is_connected():
+    print('Waiting for connection...')
+    time.sleep(1)
 
 ai_counter = 3
 global pre_result
 pre_result = ""
+
 while True:
     ai_counter -= 1
     if ai_counter == 0:
