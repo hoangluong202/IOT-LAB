@@ -1,11 +1,16 @@
 import sys
 import time
 import random
+import os
 from Adafruit_IO import MQTTClient
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
 
 #Variables
-ADAFRUIT_IO_USERNAME = "hl01012002"
-ADAFRUIT_IO_KEY = "aio_RRfI06zbdS6tSqUdlZISfSWPSMu1"
+ADAFRUIT_IO_USERNAME = os.getenv("ADAFRUIT_IO_USERNAME")
+ADAFRUIT_IO_KEY = os.getenv("ADAFRUIT_IO_KEY")
+print('User name:',ADAFRUIT_IO_USERNAME)
 AIO_FEED_ID_BUTTON_1 = "button1"
 AIO_FEED_ID_BUTTON_2 = "button2"
 AIO_FEED_ID_SENSOR_1 = "sensor1"
