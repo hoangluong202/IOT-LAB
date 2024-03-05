@@ -2,6 +2,7 @@ import sys
 import os
 from Adafruit_IO import MQTTClient
 from dotenv import load_dotenv
+from uart import *
 
 load_dotenv()  # take environment variables from .env.
 
@@ -38,3 +39,13 @@ class Adafruit_MQTT:
 
     def message(self,client , feed_id , payload):
         print("Nhan du lieu tại "+feed_id +': ' + payload)
+        if(feed_id == self.AIO_FEED_ID_BUTTON_1):
+            if(payload == "1"):
+                writeData("BUT1-ON")
+            else:
+                writeData("BUT1-OFF")
+        elif(feed_id == self.AIO_FEED_ID_BUTTON_2):
+            if(payload == "1"):
+                writeData("BUT2-ON")
+            else:
+                writeData("BUT2-OFF")
