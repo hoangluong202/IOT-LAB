@@ -1,3 +1,9 @@
-from simple_ai import image_detector
+from uart import *
+from adafruit_mqtt import Adafruit_MQTT
+import time
 
-image_detector()
+adafruit_mqtt = Adafruit_MQTT()
+time.sleep(5)
+while True:
+    readSerial(adafruit_mqtt.client)
+    time.sleep(1)

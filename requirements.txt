@@ -5,4 +5,5 @@ Pillow
 numpy
 opencv-python
 python-dotenv
+pyserial
 paho-mqtt==1.6.1
